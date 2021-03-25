@@ -16,8 +16,10 @@ exports.register = async function(req, res) {
       });
       return;
     }
-    
-    return res.send(login.errors);
+      req.flash('success', 'Usuario criado com sucesso');
+      req.session.save(function() {
+        return res.redirect('/login/index');
+      });
   } catch(e) {
     console.log(e);
     return res.render('404');
