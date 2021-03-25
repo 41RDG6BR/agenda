@@ -5,6 +5,7 @@ exports.index = (req, res) => {
   };
 
 exports.register = function(req, res) {
-  const Login = new Login(req.body);
-  res.send(req.body);
+  const login = new Login(req.body);
+  // login.register();
+  res.send(login.body);
 }
