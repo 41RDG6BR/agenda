@@ -36,18 +36,18 @@ exports.editIndex = async function(req, res){
     res.render('contato', { contato });
 }
 
-// exports.edit = async function(req, res) {
-//     if(!req.params.id) return res.render('404');
+exports.edit = async function(req, res) {
+    if(!req.params.id) return res.render('404');
 
-//     const contato = new Contato(req.body);
-//     await contato.edit(req.params.id);
+    const contato = new Contato(req.body);
+    await contato.edit(req.params.id);
 
-//     if(contato.errors.length > 0) {
-//         req.flash('errors', contato.errors);
-//         req.session.save(()=> res.redirect('/contato/index'));
-//         return;
-//     }
-//     req.flash('success', 'Contato editado com sucesso.');
-//     req.session.save(()=> res.redirect(`/contato/index/${contato.contato._id}`));
-//     return;
-// }
+    if(contato.errors.length > 0) {
+        req.flash('errors', contato.errors);
+        req.session.save(()=> res.redirect('/contato/index'));
+        return;
+    }
+    req.flash('success', 'Contato editado com sucesso.');
+    req.session.save(()=> res.redirect(`/contato/index/${contato.contato._id}`));
+    return;
+}

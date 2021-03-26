@@ -56,11 +56,11 @@ function Contato(body){
         }
     }
 
-    // Contato.prototype.edit = async function(id) {
-    //     if(typeof id !== 'string') return;
-    //     this.valida();
-    //     if(this.errors.length > 0) return;
-    //     this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, { new: true })
-    // }
+    Contato.prototype.edit = async function(id) {
+        if(typeof id !== 'string') return;
+        this.valida();
+        if(this.errors.length > 0) return;
+        this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, { new: true })
+    }
 
 module.exports = Contato;
