@@ -11,24 +11,29 @@ const ContatoSchema = new mongoose.Schema({
 
 const ContatoModel = mongoose.model('Contato', ContatoSchema);
 
-class Contato {
-    constructor(body){
+function Contato(body){
         this.body = body;
         this.errors = [];
         this.contato = null;
     }
 
-    async register() {
+    Contato.buscaPorId = async function(id) {
+        if(typeof id !== 'string') return;
+        const contato = await ContatoModel.findById(id);
+        return contato;
+    }
+
+    Contato.prototype.register = async function() {
         this.valida();
         if(this.errors.length > 0) return;
         this.contato = await ContatoModel.create(this.body);
     }
 
-    valida() {
+    Contato.prototype.valida = function() {
         this.cleanUp();
         //Validacao
         //O e-mail precisa ser valido
-        if(!validator.isEmail(this.body.email)) this.errors.push('E-mail invalido');
+        if(this.body.email && !validator.isEmail(this.body.email)) this.errors.push('E-mail invalido');
         if(!this.body.nome) this.errors.push('Nome é um campo obrigatorio');
         if(!this.body.email && !this.body.telefone) {
             this.errors.push('Pelo menos um contato precisa ser enviado: e-mail ou telefone');
@@ -36,10 +41,10 @@ class Contato {
 
       }
     
-    cleanUp(){
-    for(const key in this.body) {
-        if (typeof this.body[key] !== 'string') {
-        this.body[key] = '';
+    Contato.prototype.cleanUp = function(){
+        for(const key in this.body) {
+            if (typeof this.body[key] !== 'string') {
+            this.body[key] = '';
         }
     }
     
@@ -50,6 +55,12 @@ class Contato {
         telefone: this.body.telefone,
         }
     }
-}
+
+    // Contato.prototype.edit = async function(id) {
+    //     if(typeof id !== 'string') return;
+    //     this.valida();
+    //     if(this.errors.length > 0) return;
+    //     this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, { new: true })
+    // }
 
 module.exports = Contato;

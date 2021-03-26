@@ -11,23 +11,24 @@
 
             <%- include('includes/messages') %>
 
-            <form action="/contato/register" method="POST">
+
+              <form action="/contato/register" method="POST">
                 <input type="hidden" name="_csrf" value=<%= csrfToken %>>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Nome</label>
-                  <input type="text" class="form-control" name="nome" aria-describedby="emailHelp">
+                  <input value="<%= contato.nome %>" type="text" class="form-control" name="nome" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Sobrenome</label>
-                  <input type="text" class="form-control" name="sobrenome">
+                  <input value="<%= contato.sobrenome %>" type="text" class="form-control" name="sobrenome">
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Email</label>
-                  <input type="email" class="form-control" name="email">
+                  <input value="<%= contato.email %>" type="email" class="form-control" name="email">
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Telefone</label>
-                  <input type="tel" class="form-control" name="telefone">
+                  <input value="<%= contato.telefone %>" type="tel" class="form-control" name="telefone">
                 </div>
                 <button type="submit" class="btn btn-primary">Create</button>
               </form>

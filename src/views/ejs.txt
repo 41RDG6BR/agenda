@@ -9,3 +9,45 @@
 <% } else { %>
   <%= exibe outra coisa %>
 <% } %>
+
+        <div class="responsive-table">
+            <table class="table">
+
+                <% contatos.forEach(contato => { %>
+                    <tr>
+                        <td><%= contato.nome %></td>
+                        <td><%= contato.sobrenome %></td>
+                        <td><%= contato.telefone %></td>
+                        <td><%= contato.email %></td>
+                        <td><a href="/contato/index<%= contato._id %>">Editar</a></td>
+                        <td><a class="tel" href="/contato/delete<%= contato._id %>">Excluir</a></td>
+                    </tr>                
+                    <% }); %>
+            </table>
+        </div>
+        
+
+                    <% if(contato._id) { %>
+              <form action="/contato/edit/<%= contato._id%>" method="POST">
+            <% } else { %>
+              <form action="/contato/register" method="POST"></form>
+            <% } %>
+                <input type="hidden" name="_csrf" value=<%= csrfToken %>>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Nome</label>
+                  <input value="<%= contato.nome %>" type="text" class="form-control" name="nome" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Sobrenome</label>
+                  <input value="<%= contato.sobrenome %>" type="text" class="form-control" name="sobrenome">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Email</label>
+                  <input value="<%= contato.email %>" type="email" class="form-control" name="email">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Telefone</label>
+                  <input value="<%= contato.telefone %>" type="tel" class="form-control" name="telefone">
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+              </form>
